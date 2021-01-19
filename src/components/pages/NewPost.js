@@ -5,10 +5,13 @@ const Headline = styled.h1 `
     margin-top: 100px;
 `
 
-const PostForm = () => {
+const NewPost = () => {
     return (
         <div>
             <Headline>Create a new post</Headline>
+            <h2>Images</h2>
+            
+            <h2>Text</h2>
             <form action='http://192.168.178.28:5000/posts' method='POST'>
                 <div>
                     <label htmlFor="title">Title</label>
@@ -28,4 +31,4 @@ const PostForm = () => {
     )
 }
 
-export default PostForm
+export default NewPost

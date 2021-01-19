@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import marked from 'marked'
 
 const PostPreviewBorder = styled.div`
 	margin-bottom: 3rem;
@@ -83,13 +82,11 @@ const PreviewPostLink = styled.p`
 const Posts = ({ entries }) => (
 	<section>
 		{entries
-			? entries.map((entry) => (
+			? entries.map(entry => (
 					<PostPreviewBorder key={entry.slug}>
 						<PostPreview id='entry.sys.id'>
 							<Link to={`/blog/${entry._id}`}>
-								<PreviewPostImage
-									
-								/>
+								<PreviewPostImage />
 							</Link>
 							<PreviewPostText>
 								<Link to={`/blog/${entry.slug}`}>
@@ -99,7 +96,7 @@ const Posts = ({ entries }) => (
 								</Link>
 								<PreviewPostExcerpt
 									dangerouslySetInnerHTML={{
-										__html: marked(entry.markdown),
+										__html: entry.short_description,
 									}}
 								/>
 								<Link to={`/blog/${entry.slug}`}>

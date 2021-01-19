@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
-import marked from 'marked'
 import styled from 'styled-components'
 
 const SingleContainer = styled.section`
@@ -68,7 +68,9 @@ const Content = styled.p`
 	margin-bottom: 2rem;
 	padding: 0 1rem 0 1rem;
 `
-{/* <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
+{
+	/* <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */
+}
 
 const SinglePost = ({ match }) => {
 	const [entry, setEntry] = useState()
@@ -76,36 +78,46 @@ const SinglePost = ({ match }) => {
 	useEffect(() => {
 		const getPost = async () => {
 			try {
-			  const response = await axios.get(`http://192.168.178.28:5000/posts/${match.params.slug}`);
-			  const data = response.data.data[0] 
-			  setEntry(data)
+				const response = await axios.get(
+					`http://192.168.178.28:5000/posts/${match.params.slug}`
+				)
+				const data = response.data.data[0]
+				setEntry(data)
 			} catch (error) {
-			  console.error(error);
+				console.error(error)
 			}
-		  }
-		  getPost()
+		}
+		getPost()
 	}, [])
 
 	return (
 		<SingleContainer>
 			{entry ? (
 				<Single>
-					<PostImage
-					
-					/>
+					<PostImage />
 					<PostText>
 						<Title>{entry.title}</Title>
 						<EntryMeta>
 							<p>{`from: ${entry.author}`}</p>
 							<p>{`published: ${entry.createdAt}`}</p>
-							<p>{`last updated: `}</p>
+							<p>
+								{entry.last_updated
+									? `last updated: ${entry.last_updated}`
+									: ''}
+							</p>
 						</EntryMeta>
 						<Content
 							dangerouslySetInnerHTML={{
-								__html: marked(entry.markdown),
+								__html: entry.sanitizedHTML,
 							}}
 						/>
 					</PostText>
+					<form
+						action={`http://192.168.178.28:5000/posts/delete/${entry._id}?_method=DELETE`}
+						method='POST'>
+						<button type='submit'>Delete</button>
+					</form>
+					<Link to={`/editpost/${entry.slug}`}>Edit</Link>
 				</Single>
 			) : (
 				'loading'

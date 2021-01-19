@@ -7,7 +7,8 @@ import Footer from "./components/layout/Footer";
 import Blog from "./components/pages/Blog";
 import SinglePost from "./components/layout/SinglePost";
 import fourofour from "./components/pages/404";
-import PostForm from "./components/pages/PostForm"
+import NewPost from "./components/pages/NewPost"
+import EditPost from "./components/pages/EditPost"
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route path="/blog/:slug" component={SinglePost} />
           <Route path="/blog" component={Blog} />
           <Route exact path="/" component={HeaderHome} />
-          <Route path="/newpost" component={PostForm} />
+          <Route path="/newpost" component={NewPost} />
+          <Route path="/editpost/:slug" component={EditPost} />
         </Switch>
       </div>
       <Footer />
