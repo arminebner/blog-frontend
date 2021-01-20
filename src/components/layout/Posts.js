@@ -79,35 +79,55 @@ const PreviewPostLink = styled.p`
 	text-decoration: none;
 `
 
-const Posts = ({ entries }) => (
-	<section>
-		{entries
-			? entries.map(entry => (
-					<PostPreviewBorder key={entry.slug}>
-						<PostPreview id='entry.sys.id'>
-							<Link to={`/blog/${entry._id}`}>
-								<PreviewPostImage />
-							</Link>
-							<PreviewPostText>
-								<Link to={`/blog/${entry.slug}`}>
-									<PreviewPostTitle>
-										{entry.title}
-									</PreviewPostTitle>
+const Posts = ({ entries }) => {
+	const decodeImage = headerImage => {
+		var base64 = btoa(
+			new Uint8Array(headerImage.data).reduce(
+				(data, byte) => data + String.fromCharCode(byte),
+				''
+			)
+		)
+		return base64
+	}
+
+	return (
+		<section>
+			{entries
+				? entries.map(entry => (
+						<PostPreviewBorder key={entry.slug}>
+							<PostPreview id='entry.sys.id'>
+								<Link to={`/blog/${entry._id}`}>
+									<PreviewPostImage
+										src={`data:${
+											entry.headerImageType
+										};base64,${decodeImage(
+											entry.headerImage
+										)}`}
+									/>
 								</Link>
-								<PreviewPostExcerpt
-									dangerouslySetInnerHTML={{
-										__html: entry.short_description,
-									}}
-								/>
-								<Link to={`/blog/${entry.slug}`}>
-									<PreviewPostLink>read more</PreviewPostLink>
-								</Link>
-							</PreviewPostText>
-						</PostPreview>
-					</PostPreviewBorder>
-			  ))
-			: 'loading'}
-	</section>
-)
+								<PreviewPostText>
+									<Link to={`/blog/${entry.slug}`}>
+										<PreviewPostTitle>
+											{entry.title}
+										</PreviewPostTitle>
+									</Link>
+									<PreviewPostExcerpt
+										dangerouslySetInnerHTML={{
+											__html: entry.short_description,
+										}}
+									/>
+									<Link to={`/blog/${entry.slug}`}>
+										<PreviewPostLink>
+											read more
+										</PreviewPostLink>
+									</Link>
+								</PreviewPostText>
+							</PostPreview>
+						</PostPreviewBorder>
+				  ))
+				: 'loading'}
+		</section>
+	)
+}
 
 export default Posts

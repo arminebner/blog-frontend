@@ -68,6 +68,7 @@ const Content = styled.p`
 	margin-bottom: 2rem;
 	padding: 0 1rem 0 1rem;
 `
+
 {
 	/* <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */
 }
@@ -82,6 +83,7 @@ const SinglePost = ({ match }) => {
 					`http://192.168.178.28:5000/posts/${match.params.slug}`
 				)
 				const data = response.data.data[0]
+				console.log(data.headerImage)
 				setEntry(data)
 			} catch (error) {
 				console.error(error)
@@ -90,19 +92,35 @@ const SinglePost = ({ match }) => {
 		getPost()
 	}, [])
 
+	const decodeImage = headerImage => {
+		var base64 = btoa(
+			new Uint8Array(headerImage.data).reduce(
+				(data, byte) => data + String.fromCharCode(byte),
+				''
+			)
+		)
+		return base64
+	}
+
 	return (
 		<SingleContainer>
 			{entry ? (
 				<Single>
-					<PostImage />
+					<PostImage
+						src={`data:${
+							entry.headerImageType
+						};base64,${decodeImage(entry.headerImage)}`}
+					/>
 					<PostText>
 						<Title>{entry.title}</Title>
 						<EntryMeta>
 							<p>{`from: ${entry.author}`}</p>
-							<p>{`published: ${entry.createdAt}`}</p>
+							<p>{`published: ${new Date(entry.createdAt)}`}</p>
 							<p>
 								{entry.last_updated
-									? `last updated: ${entry.last_updated}`
+									? `last updated: ${new Date(
+											entry.last_updated
+									  )}`
 									: ''}
 							</p>
 						</EntryMeta>
