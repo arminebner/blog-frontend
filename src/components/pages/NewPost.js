@@ -17,10 +17,7 @@ const NewPost = () => {
 			<Headline>Create a new post</Headline>
 
 			<h2>Text</h2>
-			<form
-				action='http://192.168.178.28:5000/posts'
-				method='POST'
-				encType='multipart/form-data'>
+			<form action='http://192.168.178.28:5000/posts' method='POST'>
 				<div>
 					<label htmlFor='title'>Title</label>
 					<input required type='text' name='title' id='title' />
