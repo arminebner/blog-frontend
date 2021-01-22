@@ -83,7 +83,6 @@ const SinglePost = ({ match }) => {
 					`http://192.168.178.28:5000/posts/${match.params.slug}`
 				)
 				const data = response.data.data[0]
-				console.log(data.headerImage)
 				setEntry(data)
 			} catch (error) {
 				console.error(error)
@@ -135,7 +134,7 @@ const SinglePost = ({ match }) => {
 						method='POST'>
 						<button type='submit'>Delete</button>
 					</form>
-					<Link to={`/editpost/${entry.slug}`}>Edit</Link>
+					<Link to={`/edit-post/${entry.slug}`}>Edit</Link>
 				</Single>
 			) : (
 				'loading'

@@ -59,7 +59,7 @@ function Footer() {
 					<a href='https://github.com/arminebner'>
 						<img src={iconGithub} alt='github logo' />
 					</a>
-					<a href='https://www.linkedin.com/in/armin-ebner-3ab0b6132/'>
+					<a href='https://www.linkedin.com/in/armin-ebner'>
 						<img src={iconLinkedIn} alt='github logo' />
 					</a>
 				</Contact>

@@ -96,7 +96,7 @@ const Posts = ({ entries }) => {
 				? entries.map(entry => (
 						<PostPreviewBorder key={entry.slug}>
 							<PostPreview id='entry.sys.id'>
-								<Link to={`/blog/${entry._id}`}>
+								<Link to={`/blog/${entry.slug}`}>
 									<PreviewPostImage
 										src={`data:${
 											entry.headerImageType
@@ -126,6 +126,7 @@ const Posts = ({ entries }) => {
 						</PostPreviewBorder>
 				  ))
 				: 'loading'}
+			<Link to={`/new-post/`}>create new</Link>
 		</section>
 	)
 }
