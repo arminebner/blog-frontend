@@ -13,7 +13,7 @@ const DesktopNav = styled.nav`
 	top: 0;
 	left: 0;
 	position: fixed;
-	z-index: 5;
+	z-index: 100;
 	/* display: none
     transform: translateY(-70px)
     transition: ease-in 0.25s;*/
