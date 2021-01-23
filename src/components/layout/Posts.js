@@ -45,6 +45,7 @@ const PreviewPostImage = styled.img`
 	width: 130px;
 	border-radius: 50%;
 	box-shadow: 0px 2px 5px #409abf;
+	background-size: cover;
 
 	@media screen and (min-width: 1200px) {
 		height: 200px;
@@ -80,16 +81,7 @@ const PreviewPostLink = styled.p`
 `
 
 const Posts = ({ entries }) => {
-	const decodeImage = headerImage => {
-		var base64 = btoa(
-			new Uint8Array(headerImage.data).reduce(
-				(data, byte) => data + String.fromCharCode(byte),
-				''
-			)
-		)
-		return base64
-	}
-
+	console.log(entries)
 	return (
 		<section>
 			{entries
@@ -98,11 +90,7 @@ const Posts = ({ entries }) => {
 							<PostPreview id='entry.sys.id'>
 								<Link to={`/blog/${entry.slug}`}>
 									<PreviewPostImage
-										src={`data:${
-											entry.headerImageType
-										};base64,${decodeImage(
-											entry.headerImage
-										)}`}
+										src={entry.headerImagePath}
 									/>
 								</Link>
 								<PreviewPostText>
@@ -126,7 +114,7 @@ const Posts = ({ entries }) => {
 						</PostPreviewBorder>
 				  ))
 				: 'loading'}
-			<Link to={`/new-post/`}>create new</Link>
+			<Link to={'/new-post/'}>create new</Link>
 		</section>
 	)
 }

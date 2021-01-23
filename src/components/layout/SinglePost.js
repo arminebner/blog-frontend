@@ -19,7 +19,7 @@ const Single = styled.div`
 	align-items: center;
 `
 
-const PostImage = styled.img`
+const HeaderImage = styled.img`
 	height: 250px;
 	width: 100%;
 	position: absolute;
@@ -34,6 +34,18 @@ const PostImage = styled.img`
 		max-width: 1400px;
 		position: relative;
 		z-index: 1;
+	}
+`
+
+const PostImage = styled.img`
+	height: 250px;
+	width: 100%;
+	margin-bottom: 2rem;
+
+	@media screen and (min-width: 1200px) {
+		height: 450px;
+		max-width: 1400px;
+		padding: 0 1rem 0 1rem;
 	}
 `
 
@@ -91,25 +103,11 @@ const SinglePost = ({ match }) => {
 		getPost()
 	}, [])
 
-	const decodeImage = headerImage => {
-		var base64 = btoa(
-			new Uint8Array(headerImage.data).reduce(
-				(data, byte) => data + String.fromCharCode(byte),
-				''
-			)
-		)
-		return base64
-	}
-
 	return (
 		<SingleContainer>
 			{entry ? (
 				<Single>
-					<PostImage
-						src={`data:${
-							entry.headerImageType
-						};base64,${decodeImage(entry.headerImage)}`}
-					/>
+					<HeaderImage src={entry.headerImagePath} />
 					<PostText>
 						<Title>{entry.title}</Title>
 						<EntryMeta>
@@ -125,16 +123,75 @@ const SinglePost = ({ match }) => {
 						</EntryMeta>
 						<Content
 							dangerouslySetInnerHTML={{
-								__html: entry.sanitizedHTML,
+								__html: entry.sanitizedHTML1,
 							}}
 						/>
+						{entry.image1 ? (
+							<PostImage src={entry.image1Path} />
+						) : (
+							''
+						)}
+						{entry.sanitizedHTML2 ? (
+							<Content
+								dangerouslySetInnerHTML={{
+									__html: entry.sanitizedHTML2,
+								}}
+							/>
+						) : (
+							``
+						)}
+						{entry.image2 ? (
+							<PostImage src={entry.image2Path} />
+						) : (
+							''
+						)}
+
+						{entry.sanitizedHTML3 ? (
+							<Content
+								dangerouslySetInnerHTML={{
+									__html: entry.sanitizedHTML3,
+								}}
+							/>
+						) : (
+							``
+						)}
+						{entry.image3 ? (
+							<PostImage src={entry.image3Path} />
+						) : (
+							''
+						)}
+
+						{entry.sanitizedHTML4 ? (
+							<Content
+								dangerouslySetInnerHTML={{
+									__html: entry.sanitizedHTML4,
+								}}
+							/>
+						) : (
+							``
+						)}
+						{entry.image4 ? (
+							<PostImage src={entry.image4Path} />
+						) : (
+							''
+						)}
+
+						{entry.sanitizedHTML5 ? (
+							<Content
+								dangerouslySetInnerHTML={{
+									__html: entry.sanitizedHTML5,
+								}}
+							/>
+						) : (
+							``
+						)}
 					</PostText>
 					<form
 						action={`http://192.168.178.28:5000/posts/delete/${entry._id}?_method=DELETE`}
 						method='POST'>
 						<button type='submit'>Delete</button>
 					</form>
-					<Link to={`/edit-post/${entry.slug}`}>Edit</Link>
+					<Link to={`blog/edit-post/${entry.slug}`}>Edit</Link>
 				</Single>
 			) : (
 				'loading'

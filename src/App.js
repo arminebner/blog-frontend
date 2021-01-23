@@ -16,11 +16,11 @@ function App() {
 			<div className='main-container'>
 				<NavBar />
 				<Switch>
-					<Route path='/blog/:slug' component={SinglePost} />
-					<Route path='/blog' component={Blog} />
+					<Route exact path='/blog/:slug' component={SinglePost} />
+					<Route exact path='/blog' component={Blog} />
 					<Route exact path='/' component={HeaderHome} />
-					<Route path='/new-post' component={NewPost} />
-					<Route path='/edit-post/:slug' component={EditPost} />
+					<Route exact path='/new-post' component={NewPost} />
+					<Route exact path='/edit-post/:slug' component={EditPost} />
 				</Switch>
 			</div>
 			<Footer />
