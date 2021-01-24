@@ -1,6 +1,12 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import About from './About'
+
+;<meta
+	name='description'
+	content='My Website about my programming learning-journey and the things I like most about it'
+/>
 
 const Header = styled.header`
 	text-align: right;
@@ -57,6 +63,15 @@ const Web = styled.p`
 function HeaderHome() {
 	return (
 		<div>
+			<Helmet>
+				<meta charSet='utf-8' />
+				<title>arminebner.com</title>
+				<meta
+					name='description'
+					content='A Place where I write about discovering different technologies, such as react.js, node.js, javascript, html, css, Linux and other techrelated topics.'
+				/>
+				<link rel='canonical' href='https://arminebner.com' />
+			</Helmet>
 			<Header>
 				<a href='#about'>
 					<div className='lights'>
